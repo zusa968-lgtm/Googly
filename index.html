@@ -1,106 +1,342 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Googly</title>
-<style>
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#f8f9fa;
-  color:#202124;
-}
-header{
-  padding:20px;
-  text-align:center;
-  background:white;
-  border-bottom:1px solid #ddd;
-}
-.logo{
-  font-size:38px;
-  font-weight:bold;
-}
-.logo span:nth-child(1){color:#4285f4}
-.logo span:nth-child(2){color:#ea4335}
-.logo span:nth-child(3){color:#fbbc05}
-.logo span:nth-child(4){color:#4285f4}
-.logo span:nth-child(5){color:#34a853}
-main{
-  min-height:75vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:30px 18px;
-}
-.card{
-  width:100%;
-  max-width:500px;
-  background:white;
-  padding:35px 25px;
-  border-radius:22px;
-  text-align:center;
-  box-shadow:0 5px 25px rgba(0,0,0,.08);
-}
-h1{font-size:30px;margin:10px 0}
-p{color:#5f6368;line-height:1.8}
-.buttons{
-  display:flex;
-  gap:12px;
-  justify-content:center;
-  flex-wrap:wrap;
-  margin-top:25px;
-}
-button{
-  border:0;
-  padding:14px 25px;
-  border-radius:10px;
-  font-size:16px;
-  cursor:pointer;
-}
-.login{background:#4285f4;color:white}
-.signup{background:#34a853;color:white}
-footer{
-  text-align:center;
-  padding:20px;
-  color:#777;
-  font-size:13px;
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Googly</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #f8f9fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 430px;
+      background: white;
+      padding: 30px 24px;
+      border-radius: 20px;
+      box-shadow: 0 5px 25px rgba(0,0,0,.08);
+      text-align: center;
+    }
+
+    .logo {
+      font-size: 45px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .blue { color:#4285f4; }
+    .red { color:#ea4335; }
+    .yellow { color:#fbbc05; }
+    .green { color:#34a853; }
+
+    h1 {
+      margin: 5px 0 10px;
+      color: #222;
+    }
+
+    p {
+      color: #666;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      margin: 7px 0;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      font-size: 16px;
+      direction: ltr;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 10px;
+      border: 0;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .primary {
+      background: #4285f4;
+      color: white;
+    }
+
+    .secondary {
+      background: #f1f3f4;
+      color: #333;
+    }
+
+    .logout {
+      background: #ea4335;
+      color: white;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    #message {
+      margin-top: 15px;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .user-box {
+      background: #f1f3f4;
+      padding: 15px;
+      border-radius: 12px;
+      margin: 20px 0;
+      direction: ltr;
+      word-break: break-word;
+    }
+
+    footer {
+      margin-top: 25px;
+      font-size: 12px;
+      color: #888;
+    }
+  </style>
 </head>
 
 <body>
 
-<header>
+<div class="container">
+
   <div class="logo">
-    <span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>y</span>
+    <span class="blue">G</span>
+    <span class="red">o</span>
+    <span class="yellow">o</span>
+    <span class="blue">g</span>
+    <span class="green">l</span>
+    <span class="red">y</span>
   </div>
-</header>
 
-<main>
-  <div class="card">
+  <!-- تسجيل الدخول / إنشاء الحساب -->
+  <div id="authBox">
+
     <h1>مرحبًا بك في Googly</h1>
-    <p>
-      منصة بسيطة وسريعة وآمنة.
-      أنشئ حسابك وابدأ باستخدام Googly.
-    </p>
+    <p>أنشئ حسابك أو سجّل الدخول</p>
 
-    <div class="buttons">
-      <button class="login" onclick="alert('صفحة تسجيل الدخول قيد التجهيز')">
-        تسجيل الدخول
-      </button>
+    <input id="email" type="email" placeholder="البريد الإلكتروني">
+    <input id="password" type="password" placeholder="كلمة المرور">
 
-      <button class="signup" onclick="alert('صفحة إنشاء الحساب قيد التجهيز')">
-        إنشاء حساب
-      </button>
-    </div>
+    <button class="primary" onclick="signUp()">
+      إنشاء حساب
+    </button>
+
+    <button class="secondary" onclick="signIn()">
+      تسجيل الدخول
+    </button>
+
+    <div id="message"></div>
   </div>
-</main>
 
-<footer>
-  Googly مشروع مستقل وغير تابع لشركة Google.
-</footer>
+  <!-- الحساب بعد تسجيل الدخول -->
+  <div id="accountBox" class="hidden">
+
+    <h1>أهلًا بك 👋</h1>
+
+    <div class="user-box">
+      <strong>حسابك:</strong>
+      <div id="userEmail"></div>
+    </div>
+
+    <p>تم تسجيل الدخول بنجاح إلى Googly.</p>
+
+    <button class="logout" onclick="signOut()">
+      تسجيل الخروج
+    </button>
+
+    <div id="accountMessage"></div>
+  </div>
+
+  <footer>
+    Googly مشروع مستقل وغير تابع لشركة Google.
+  </footer>
+
+</div>
+
+<script>
+
+  // إعداد Supabase
+  const SUPABASE_URL =
+    'https://fetjdhvogtfpvywoexih.supabase.co';
+
+  const SUPABASE_KEY =
+    'sb_publishable_j6a-zKmteqFODs0IQONFHA_Ci5YRz1L';
+
+  const client = supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+
+  // رسالة للمستخدم
+  function showMessage(text, success = false) {
+    const message = document.getElementById('message');
+
+    message.textContent = text;
+    message.style.color = success ? '#188038' : '#d93025';
+  }
+
+
+  // إنشاء حساب
+  async function signUp() {
+
+    const email =
+      document.getElementById('email').value.trim();
+
+    const password =
+      document.getElementById('password').value;
+
+    if (!email || !password) {
+      showMessage('أدخل البريد الإلكتروني وكلمة المرور.');
+      return;
+    }
+
+    if (password.length < 6) {
+      showMessage('كلمة المرور يجب أن تكون 6 أحرف على الأقل.');
+      return;
+    }
+
+    showMessage('جاري إنشاء الحساب...', true);
+
+    const { data, error } =
+      await client.auth.signUp({
+        email: email,
+        password: password
+      });
+
+    if (error) {
+      showMessage(error.message);
+      return;
+    }
+
+    if (data.session) {
+      showMessage('تم إنشاء الحساب وتسجيل الدخول بنجاح.', true);
+    } else {
+      showMessage(
+        'تم إنشاء الحساب. تحقق من بريدك الإلكتروني لتأكيد الحساب.',
+        true
+      );
+    }
+  }
+
+
+  // تسجيل الدخول
+  async function signIn() {
+
+    const email =
+      document.getElementById('email').value.trim();
+
+    const password =
+      document.getElementById('password').value;
+
+    if (!email || !password) {
+      showMessage('أدخل البريد الإلكتروني وكلمة المرور.');
+      return;
+    }
+
+    showMessage('جاري تسجيل الدخول...', true);
+
+    const { data, error } =
+      await client.auth.signInWithPassword({
+        email: email,
+        password: password
+      });
+
+    if (error) {
+      showMessage('البريد الإلكتروني أو كلمة المرور غير صحيحة.');
+      return;
+    }
+
+    showMessage('تم تسجيل الدخول بنجاح.', true);
+
+    updatePage(data.user);
+  }
+
+
+  // تسجيل الخروج
+  async function signOut() {
+
+    await client.auth.signOut();
+
+    document.getElementById('accountBox')
+      .classList.add('hidden');
+
+    document.getElementById('authBox')
+      .classList.remove('hidden');
+
+    document.getElementById('email').value = '';
+    document.getElementById('password').value = '';
+  }
+
+
+  // تحديث الصفحة حسب حالة الحساب
+  function updatePage(user) {
+
+    if (user) {
+
+      document.getElementById('authBox')
+        .classList.add('hidden');
+
+      document.getElementById('accountBox')
+        .classList.remove('hidden');
+
+      document.getElementById('userEmail')
+        .textContent = user.email;
+
+    } else {
+
+      document.getElementById('authBox')
+        .classList.remove('hidden');
+
+      document.getElementById('accountBox')
+        .classList.add('hidden');
+    }
+  }
+
+
+  // التحقق من المستخدم الحالي عند فتح الموقع
+  async function checkUser() {
+
+    const { data } =
+      await client.auth.getUser();
+
+    updatePage(data.user);
+  }
+
+
+  // مراقبة تسجيل الدخول والخروج
+  client.auth.onAuthStateChange(
+    function(event, session) {
+      updatePage(session ? session.user : null);
+    }
+  );
+
+
+  // تشغيل التحقق عند فتح الصفحة
+  checkUser();
+
+</script>
 
 </body>
   </html>
